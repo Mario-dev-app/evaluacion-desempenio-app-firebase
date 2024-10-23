@@ -1,0 +1,47 @@
+.table {
+    background-color: white;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody+tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table .table {
+    background-color: #fff;
+}
+
+/* Estilos para celdas alineadas al centro y a la derecha */
+.table th,
+.table td {
+    text-align: left;
+}
+
+.table th.text-center,
+.table td.text-center {
+    text-align: center;
+}
+
+.table th.text-right,
+.table td.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}

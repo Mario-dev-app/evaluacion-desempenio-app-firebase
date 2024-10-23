@@ -1,0 +1,103 @@
+<app-simple-toolbar title="Aprobaciones"></app-simple-toolbar>
+
+<ion-content [fullscreen]="true">
+  @if(approvals.length > 0) {
+  <ion-grid>
+    <ion-row>
+      @for (approval of approvals; track approval) {
+      <ion-col size="12" class="ion-margin-top">
+        <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4" class="ion-text-center">Nombres:</ion-col>
+              <ion-col>{{ approval.user.firstname }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4" class="ion-text-center">Apellidos:</ion-col>
+              <ion-col>{{ approval.user.lastname }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4" class="ion-text-center">Usuario:</ion-col>
+              <ion-col>{{ approval.user.username }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4" class="ion-text-center">Sociedad:</ion-col>
+              <ion-col>{{ approval.user.society }}</ion-col>
+            </ion-row>
+            <ion-row class="ion-margin-top">
+              <ion-col size="6">
+                <ion-button (click)="chargeGoals(approval.period, approval.user._id)" expand="block"
+                  class="my-custom-button">
+                  <ion-text>
+                    Ver objetivos
+                  </ion-text>
+                  <ion-img src="../../../assets/target.png"></ion-img>
+                </ion-button>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button (click)="changeAbilities(approval.user.competencyLevel)" expand="block"
+                  class="my-custom-button">
+                  <ion-text>
+                    Ver competencias
+                  </ion-text>
+                  <ion-img src="../../../assets/abilities.png"></ion-img>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-end">
+              <ion-col size="2">
+                <ion-button (click)="approved(approval._id)" size="small" color="success">
+                  <ion-icon color="light" slot="icon-only" name="checkmark-circle"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button (click)="rejected(approval._id)" size="small" color="danger">
+                  <ion-icon slot="icon-only" name="close"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
+  }@else {
+  <ion-grid>
+    <ion-row>
+      <ion-col class="my-flex-box">
+        <ion-text>
+          <h4 class="text-center">Ooops! Aún no hay aprobaciones por realizar</h4>
+        </ion-text>
+        <ion-img id="message-img" src="../../../assets/message.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  }
+  <ion-button id="open-modal">Open Sheet Modal</ion-button>
+  <ion-button id="open-modal-comp">Open Sheet Modal</ion-button>
+
+  <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <ion-list class="ion-margin-top">
+        @for (goal of goals; track goal; let idx = $index) {
+        <ion-item>
+          <ion-label>{{idx + 1}}. {{ goal.description }}</ion-label>
+        </ion-item>
+        }
+      </ion-list>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal trigger="open-modal-comp" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+    <ng-template>
+      <ion-list class="ion-margin-top">
+        @for (competency of competencies; track competency; let idx = $index) {
+        <ion-item>
+          <ion-label>{{idx + 1}}. {{ competency }}</ion-label>
+        </ion-item>
+        }
+      </ion-list>
+    </ng-template>
+  </ion-modal>
+</ion-content>

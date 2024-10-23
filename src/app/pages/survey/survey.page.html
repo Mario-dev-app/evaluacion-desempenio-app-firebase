@@ -1,0 +1,91 @@
+<app-simple-toolbar title="Encuesta"></app-simple-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    @if (isFormReady) {
+    <form [formGroup]="surveyForm" (ngSubmit)="sendSurvey()">
+      <ion-row>
+        @for (goal of goals; track goal; let i = $index) {
+        <ion-col size="12" [formGroupName]="'goal_' + i">
+          <ion-text>
+            <p>{{ goal.description }}</p>
+          </ion-text>
+          <div class="survey">
+            @for (num of [1, 2, 3, 4, 5]; track num) {
+            <label class="checkbox-container">
+              <input type="radio" [value]="num" formControlName="value" />
+              <span class="checkmark">{{ num }}</span>
+            </label>
+            }
+          </div>
+          <input type="hidden" formControlName="description">
+
+          <div class="labels-container">
+            <small class="text-center">Debajo de <br/> lo esperado</small>
+            <small class="text-center" style="margin-right: 0.5rem;">Cumple <br/> parcialmente</small>
+            <small class="text-center" style="margin-right: 1rem;">Cumple</small>
+            <small class="text-center">Destacado</small>
+            <small class="text-center">Excelente</small>
+          </div>
+        </ion-col>
+        }
+
+
+        @for (competency of competencies; track competency; let i = $index) {
+        <ion-col size="12" [formGroupName]="'ability_' + i">
+          <ion-text>
+            <p>{{ competency }}</p>
+          </ion-text>
+          <div class="survey">
+            @for (num of [1, 2, 3, 4, 5]; track num) {
+            <label class="checkbox-container">
+              <input type="radio" [value]="num" formControlName="value" />
+              <span class="checkmark">{{ num }}</span>
+            </label>
+            }
+          </div>
+          <input type="hidden" formControlName="description">
+
+          <!-- <div class="labels-container">
+            <small class="text-center">Muy <br /> malo</small>
+            <small class="text-center">Malo</small>
+            <small class="text-center">Regular</small>
+            <small class="text-center">Bueno</small>
+            <small class="text-center">Muy <br /> bueno</small>
+          </div> -->
+          <div class="labels-container">
+            <small class="text-center">Debajo de <br/> lo esperado</small>
+            <small class="text-center" style="margin-right: 0.5rem;">Cumple <br/> parcialmente</small>
+            <small class="text-center" style="margin-right: 1rem;">Cumple</small>
+            <small class="text-center">Destacado</small>
+            <small class="text-center">Excelente</small>
+          </div>
+        </ion-col>
+        }
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-text>
+            <p>Comentarios</p>
+          </ion-text>
+          <ion-textarea formControlName="comentaries" maxlength="250"></ion-textarea>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-end ion-margin-top">
+        <ion-col size="2">
+          <ion-button type="submit" color="success">
+            <ion-icon color="light" slot="icon-only" name="send"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    }@else {
+    <p>Cargando formulario...</p>
+    }
+  </ion-grid>
+
+  <ion-loading></ion-loading>
+</ion-content>

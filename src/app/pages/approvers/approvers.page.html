@@ -1,0 +1,38 @@
+<app-simple-toolbar title="Aprobadores"></app-simple-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="text-center">Usuario</th>
+              <th class="text-center">Aprobador</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (approver of approversXusers; track approver) {
+            <tr>
+              <td>{{ approver.firstname }} {{ approver.lastname }}</td>
+              <td>{{ approver.approver.firstname }} {{ approver.approver.lastname }}</td>
+              <td>
+                <ion-button size="small" color="danger">
+                  <ion-icon slot="icon-only" icon="trash"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

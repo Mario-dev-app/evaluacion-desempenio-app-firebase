@@ -1,0 +1,31 @@
+<app-simple-toolbar title="Configuración"></app-simple-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="ion-margin-top">
+    <ion-row class="ion-justify-content-center">
+      <ion-text>
+        <h2>Modificar Contraseña</h2>
+        <ion-img src="../../../assets/key.png"></ion-img>
+      </ion-text>
+      <ion-col size="11">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="updatePassword()">
+          <ion-item>
+            <ion-input label="Nueva contraseña" labelPlacement="floating" [type]="passwordVisible ? 'text' : 'password'" formControlName="password"/>
+            <ion-button slot="end" fill="clear" (click)="passwordVisible = !passwordVisible">
+              <ion-icon [name]="passwordVisible ? 'eye' : 'eye-off'" color="dark"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Confirmar contraseña" labelPlacement="floating" [type]="confirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword"/>
+            <ion-button slot="end" fill="clear" (click)="confirmPasswordVisible = !confirmPasswordVisible">
+              <ion-icon [name]="confirmPasswordVisible ? 'eye' : 'eye-off'" color="dark"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-button class="ion-margin-top" type="submit" size="block" color="dark">Actualizar</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-toast></ion-toast>
+</ion-content>

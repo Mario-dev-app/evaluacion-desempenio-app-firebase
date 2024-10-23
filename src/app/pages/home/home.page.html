@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-img slot="start" src="../../../assets/Logo MP 2.png"></ion-img>
+    <ion-buttons slot="end">
+      <ion-button id="click-trigger">
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-popover alignment="start" side="bottom" trigger="click-trigger" triggerAction="click" [dismissOnSelect]="true">
+  <ng-template #name>
+    <ion-list [inset]="true">
+      <ion-item (click)="redirectToConfigPage()">
+        <ion-label>Configuración</ion-label>
+        <ion-icon name="cog" slot="end" color="dark"></ion-icon>
+      </ion-item>
+      <ion-item (click)="signOut()">
+        <ion-label>Cerrar sesión</ion-label>
+        <ion-icon name="power" slot="end" color="dark"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-popover>
+
+<ion-content [fullscreen]="true">
+  <ion-text>
+    <h4 class="bienvenida">¡Bienvenido(a), {{ firstname }}!</h4>
+  </ion-text>
+  @if(isPeriodActive) {
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      @if(role !== 'GER') {
+        @if(!isApprovalActive) {
+          <ion-col size="11">
+            <ion-button
+              (click)="presentAlert('Registrar nuevo objetivo', '*Los objetivos son considerados metas cuantitativas por cumplir en el periodo actual', 'my-custom-alert')">
+              <ion-text>
+                <h2>Registrar objetivo</h2>
+              </ion-text>
+              <ion-img src="../../../assets/target.png"></ion-img>
+            </ion-button>
+          </ion-col>
+        }
+        <ion-col size="11">
+          <ion-button (click)="redirectToGoalsReviewPage()">
+            <ion-text>
+              <h2>Revisar metas</h2>
+            </ion-text>
+            <ion-img src="../../../assets/rating.png"></ion-img>
+          </ion-button>
+        </ion-col>
+      }
+      @if(isApprover) {
+        <ion-col size="11">
+          <ion-button (click)="redirectToApprovalsReviewPage()">
+            <ion-text>
+              <h2>Aprobaciones</h2>
+            </ion-text>
+            <ion-img src="../../../assets/approved.png"></ion-img>
+          </ion-button>
+        </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
+  }@else {
+  <ion-grid>
+    <ion-row>
+      <ion-col class="my-flex-box">
+        <ion-text>
+          <h4 class="text-center">Ooops! No hay periodo activo</h4>
+        </ion-text>
+        <ion-img id="schedule-img" src="../../../assets/schedule.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  }
+
+  <ion-alert></ion-alert>
+  <ion-toast></ion-toast>
+  <ion-loading></ion-loading>
+</ion-content>

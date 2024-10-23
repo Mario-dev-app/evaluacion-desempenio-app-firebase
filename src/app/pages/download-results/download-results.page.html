@@ -1,0 +1,117 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon name="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(survey) {
+    <ion-text> 
+      <h4>Estimado(a), {{ firstname }}</h4>
+      @if(survey.isResultsDownloaded) {
+        <p>A continuación le presentamos sus resultados de la evaluación de desempeño:</p>
+      }@else {
+        <p>Para poder visualizar sus resultados de la evaluación de desempeño presione el siguiente botón:</p>
+      }
+    </ion-text>
+    
+    @if(survey.isResultsDownloaded){
+      <ion-item>
+        <ion-label>Evaluador:</ion-label>
+        <ion-badge color="secondary">{{ survey.userEvaluator.firstname }} {{ survey.userEvaluator.lastname }}</ion-badge>
+      </ion-item>
+      <!--INICIO DE TABLA COMPETENCIAS -->
+      <ion-text>
+        <h5 class="table-title">Competencias</h5>
+      </ion-text>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <table class="ionic-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (competency of survey.competencies; track competency) {
+                  <tr>
+                    <td>{{ competency.description }}</td>
+                    <td>{{ getGrade(competency.value) }}</td>
+                  </tr>
+                }
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Promedio</td>
+                  <td>{{ totalValueCompetencies/totalCompetencies | number : '1.2-2' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+  
+      <!--INICIO DE TABLA OBJETIVOS -->
+      <ion-text>
+        <h5 class="table-title">Objetivos</h5>
+      </ion-text>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <table class="ionic-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (goal of survey.goals; track goal) {
+                  <tr>
+                    <td>{{ goal.description }}</td>
+                    <td>{{ getGrade(goal.value) }}</td>
+                  </tr>
+                }
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Promedio</td>
+                  <td>{{ totalValueGoals/totalGoals | number : '1.2-2' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <p class="comentaries">Comentarios: {{ survey.comentaries }}</p>
+    }
+
+    @if(!survey.isResultsDownloaded) {
+      <ion-button (click)="acceptResults()" class="my-back-button" color="dark" size="block">Mis resultados</ion-button>
+    }
+  }@else {
+    <ion-grid>
+      <ion-row>
+        <ion-col class="my-flex-box">
+          <ion-text>
+            <h4 class="text-center"> <b>Ooops!</b> No tiene una evaluación en el sistema. Consulte con el área de Gestión Humana o con su jefe directo.</h4>
+          </ion-text>
+          <ion-img id="schedule-img" src="../../../assets/error.png"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  }
+</ion-content>

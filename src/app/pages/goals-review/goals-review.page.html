@@ -1,0 +1,104 @@
+<app-simple-toolbar title="Metas"></app-simple-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col>
+        @if(isRequestApprovalActive) {
+          <small>Estado:</small>
+          @switch (approval.state) {
+            @case ('IN REVIEW 1') {
+              <ion-chip color="warning">{{ approval.state }}</ion-chip>
+            }
+            @case ('IN REVIEW 2') {
+              <ion-chip color="warning">{{ approval.state }}</ion-chip>
+            }
+            @case ('APPROVED') {
+              <ion-chip color="success">{{ approval.state }}</ion-chip>
+            }
+            @case ('REJECTED') {
+              <ion-chip color="danger">{{ approval.state }}</ion-chip>
+            }
+          }
+        }
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">
+              <ion-img src="../../../assets/target.png"></ion-img>
+              <h2>Objetivos</h2>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            @if(goals) {
+              <ion-list>
+                @for (goal of goals; track goal) {
+                  <ion-item>
+                    <ion-label>{{ goal.description }}</ion-label>
+                    @if(!isRequestApprovalActive) {
+                      <ion-button (click)="removeGoal(goal._id)" color="danger" slot="end">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                      </ion-button>
+                    }
+                  </ion-item>
+                }
+              </ion-list>
+            }@else {
+              <h3 class="ion-text-center">No hay registros</h3>
+            }
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-grid class="ion-margin-top">
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">
+              <ion-img src="../../../assets/abilities.png"></ion-img>
+              <h2>Competencias</h2>
+            </ion-card-title>
+          </ion-card-header>
+          
+          <ion-card-content>
+            @if(competencies || competencies?.length > 0) {
+              <ion-list>
+                @for (competency of competencies; track competency) {
+                  <ion-item>
+                    <ion-label>{{ competency }}</ion-label>
+                    <!-- @if(!isRequestApprovalActive) {
+                      <ion-button (click)="removeGoalOrAbility(ability._id, 'ability')" color="danger" slot="end">
+                        <ion-icon slot="icon-only" name="trash"></ion-icon>
+                      </ion-button>
+                    } -->
+                  </ion-item>
+                }
+              </ion-list>
+            }@else {
+              <h3 class="ion-text-center">No hay registros</h3>
+            }
+          </ion-card-content>
+        </ion-card>
+        @if((goals || competencies) && !isRequestApprovalActive) {
+          <ion-button (click)="requestApproval()" class="my-button ion-margin-top" expand="block">Solicitar aprobación</ion-button>
+        }
+
+        @if(isRequestApprovalActive) {
+          @if(approval.state === 'REJECTED') {
+            <ion-button (click)="resetSurvey()" class="my-button ion-margin-top" expand="block">Restablecer</ion-button>
+          }
+        }
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-loading></ion-loading>
+  <ion-toast></ion-toast>
+</ion-content>

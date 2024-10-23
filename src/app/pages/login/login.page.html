@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="8">
+        <ion-img src="../../../assets/logo completo.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-margin-top">
+      <ion-col size="6">
+        <ion-text color="light">
+          <h2 class="ion-text-center">Evaluación de desempeño</h2>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="11">
+        <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+          <ion-item>
+            <ion-input label="Usuario" labelPlacement="floating" formControlName="username"></ion-input>
+            <ion-icon slot="end" name="person"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-input [type]="showPassword ? 'text' : 'password'" label="Contraseña"
+              labelPlacement="floating" formControlName="password"></ion-input>
+            <ion-icon class="pointer" (click)="changeInputType()" slot="end"
+              [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+          </ion-item>
+          <p class="text-center text-white" (click)="resetPasswordAlert()">¿Olvidaste tu contraseña?</p>
+          <ion-button type="submit" shape="round" color="dark" size="block">Ingresar</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-alert></ion-alert>
+  <ion-loading></ion-loading>
+  <ion-toast></ion-toast>
+
+</ion-content>

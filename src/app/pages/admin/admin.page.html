@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-img slot="start" src="../../../assets/Logo MP 2.png"></ion-img>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon slot="icon-only" name="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-margin-top">
+      <ion-col size="11">
+        <ion-button (click)="redirectToApprovers()">
+          <ion-text>
+            <h2>Aprobadores</h2>
+          </ion-text>
+          <ion-img src="../../../assets/authentication.png"></ion-img>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Encuesta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon name="power"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(!approvals || approvals.length === 0) {
+    <ion-grid>
+      <ion-row>
+        <ion-col class="my-flex-box">
+          <ion-text>
+            <h4 class="text-center">Usted está siendo evaluado. ¡Pronto tendremos sus resultados!</h4>
+          </ion-text>
+          <ion-img id="feedback" src="../../../assets/good-feedback.png"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  }@else {
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-list>
+            @for (approval of approvals; track approval) {
+              <ion-item>
+                <ion-label slot="start">{{ approval.user.firstname }} {{ approval.user.lastname }}</ion-label>
+                @if(approval.state === 'DONE') {
+                  <ion-button color="success" slot="end" shape="round">
+                    <ion-icon slot="icon-only" color="light" name="checkmark-done-circle-outline"></ion-icon>
+                  </ion-button>
+                  <!-- <ion-badge slot="end" color="success">
+                  </ion-badge> -->
+                }@else {
+                  <ion-button (click)="redirectToSurvey(approval.user._id, approval._id, approval.user.competencyLevel)" color="secondary" slot="end">GO</ion-button>
+                }
+              </ion-item>
+            }
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  }
+</ion-content>
